@@ -1,0 +1,10 @@
+version: '3'
+services:
+  xcall-event-watcher:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: xcall-event-watcher
+    volumes:
+      - ./logs:/app/logs
+    restart: always

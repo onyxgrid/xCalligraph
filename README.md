@@ -10,4 +10,5 @@ Atm it will be connected to the Berlin testnet. So it will only work with Berlin
 2. Place a wallet keystore file in the wallet folder and name it `keystore`.
 
 ## How to run
-Run `go run cmd/main.go` or make a build with `go build -o xcall_watcher cmd/main.go` and run the binary.
+Make sure to have Docker and docker-compose installed. Then simply run `make run` in the root folder.
+
