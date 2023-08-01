@@ -7,8 +7,8 @@ import (
 	v3 "github.com/icon-project/goloop/server/v3"
 	
 	// TWO BELOW ARE FOR TESTING
-	"strconv"
-	"github.com/icon-project/goloop/server/jsonrpc"
+	// "strconv"
+	// "github.com/icon-project/goloop/server/jsonrpc"
 )
 
 type BlockHeightParam struct {
@@ -28,25 +28,25 @@ func CheckBlocks() {
 
 	// FOR TESTING. STARTS HERE
 
-	_ = latestBlock
-	num := 11_493_046
-	hexString := strconv.FormatInt(int64(num), 16)
+	// _ = latestBlock
+	// num := 11_493_046
+	// hexString := strconv.FormatInt(int64(num), 16)
 
-	// // num to jsonrpc.Hexint
-	numHex := jsonrpc.HexInt(hexString)
+	// // // num to jsonrpc.Hexint
+	// numHex := jsonrpc.HexInt(hexString)
 
-	_ = numHex
-	blockHeightParam := &v3.BlockHeightParam{
-		Height: "0x" + numHex,
-	}
+	// _ = numHex
+	// blockHeightParam := &v3.BlockHeightParam{
+	// 	Height: "0x" + numHex,
+	// }
 
-	testBlock, err := Client.GetBlockByHeight(blockHeightParam)
-	if err != nil {
-		fmt.Println(err)
-	}
+	// testBlock, err := Client.GetBlockByHeight(blockHeightParam)
+	// if err != nil {
+	// 	fmt.Println(err)
+	// }
 
-	CurBlockChan <- testBlock
-	return
+	// CurBlockChan <- testBlock
+	// return
 	
 	// TESTING ENDS HERE
 	

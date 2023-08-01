@@ -37,7 +37,7 @@ func GetEvents(_hash *v3.TransactionHashParam) error {
 // Handle the eventlogs send by the xcall contract
 func HandleXCallEvents(_log client.EventLog) {
 	if *_log.Indexed[0] == CALLMESSAGE_EVENT {
-		fmt.Println("CALLMESSAGE_EVENT")
+
 		xCallRequestID := *_log.Data[0]
 		xCallData := *_log.Data[1]
 		btpAddressCaller := *_log.Indexed[1]
@@ -53,15 +53,9 @@ func HandleXCallEvents(_log client.EventLog) {
 
 // Handle the eventlogs send by the bmc contract
 func HandleBmcEvents(_log client.EventLog) {
-	fmt.Println("HandleBmcEvents:")
-	// fmt.Println(*_log.Indexed[0])
+
 	if *_log.Indexed[0] == BTP_EVENT {
-		fmt.Println("BTP_EVENT")
+		// fmt.Println("BTP_EVENT")
 	}
 }
 
-func callExecuteCall(_reqId string, _data string) error {
-	
-	
-	return nil
-}
