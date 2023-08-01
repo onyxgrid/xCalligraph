@@ -3,16 +3,14 @@ package icon
 import (
 	"fmt"
 	"math/big"
-
 	"github.com/eyeonicon/go-icon-sdk/transactions"
+	"github.com/paulrouge/xcall-event-watcher/internal/logger"
 )
 
 // Send a transaction to the 'executeCall' method on the xCall contract.
 func callExecuteCall(_reqId string, _data string) error {
 	// not sure if we can leave the params as strings
 
-	fmt.Println(_reqId)
-	// return nil
 	// the address of the contract
 	method := "executeCall"
 
@@ -33,6 +31,9 @@ func callExecuteCall(_reqId string, _data string) error {
 		fmt.Println(err)
 	}
 
-	fmt.Println(*hash) // Returns the hash of the tx.
+	// fmt.Println(*hash) // Returns the hash of the tx.
+
+	logger.Logger.Printf("\nexecuteCall called on Berlin xCall contract.\nreqId: %v\ndata: %v\ntx: %v\n", _reqId, _data, *hash)
+
 	return nil
 }

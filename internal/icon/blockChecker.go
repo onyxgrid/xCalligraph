@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"time"
+
 	v3 "github.com/icon-project/goloop/server/v3"
-	
 	// TWO BELOW ARE FOR TESTING
 	// "strconv"
 	// "github.com/icon-project/goloop/server/jsonrpc"
@@ -47,20 +47,19 @@ func CheckBlocks() {
 
 	// CurBlockChan <- testBlock
 	// return
-	
+
 	// TESTING ENDS HERE
-	
+
 	for {
 		currentBlock, _ := Client.GetLastBlock()
 
 		// sleep 200 ms - to prevent blocking the port of the node?
 		time.Sleep(300 * time.Millisecond)
 
-		// check if there is a new block
-		if currentBlock.Height > latestBlock.Height {
+		// check if there is a new block, we wait 3 blocks to make sure the txs are confirmed (and event logs are available)
+		if currentBlock.Height  > latestBlock.Height - 3 {
 
 			CurBlockChan <- currentBlock
-			// set latestBlock to currentBlock
 			latestBlock = currentBlock
 		}
 	}
@@ -73,7 +72,10 @@ Handles the blocks sent by the CheckBlocks() function. Checks all transactions i
 func HandleBlock() {
 	for {
 		b := <-CurBlockChan
-		fmt.Printf("Block %d\n", b.Height)
+
+		// for testing. log the block height.
+		// logger.Logger.Printf("Block %d", b.Height)
+
 		for _, rawTx := range b.NormalTransactions {
 			// rawTx is a []byte, convert to TransactionHashParam
 			jsonTx := json.RawMessage(rawTx)
@@ -92,7 +94,10 @@ Gets the events of a transaction.
 */
 func HandleTransaction() {
 	for {
+
 		tx := <-TransactionChan
+
+		// fmt.Println("tx:", tx.Hash)
 		GetEvents(tx)
 	}
 }

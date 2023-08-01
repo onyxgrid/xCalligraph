@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	BTP_EVENT = "BTPEvent(str,int,str,str)"
+	BTP_EVENT         = "BTPEvent(str,int,str,str)"
 	CALLMESSAGE_EVENT = "CallMessage(str,str,int,int,bytes)"
 )
 
@@ -18,17 +18,22 @@ func GetEvents(_hash *v3.TransactionHashParam) error {
 		return fmt.Errorf("GetTransactionByHash error: %v", err)
 	}
 
+	// height, _ := tx.BlockHeight.Int64()
+
+	// fmt.Println("checking events of txs in block:", height)
+	// fmt.Printf("amount of event logs: %v\n", len(tx.EventLogs))
+	
 	logs := tx.EventLogs
+	
 	for _, log := range logs {
 		address := log.Addr
-
+		
 		if address == BMC_ADDRESS {
 			HandleBmcEvents(log)
 		}
 		if address == XCALL_ADDRESS {
 			HandleXCallEvents(log)
-		} 
-
+		}
 	}
 
 	return nil
@@ -47,7 +52,7 @@ func HandleXCallEvents(_log client.EventLog) {
 			if err != nil {
 				fmt.Println("callExecuteCall error:", err)
 			}
-		}	
+		}
 	}
 }
 
@@ -58,4 +63,3 @@ func HandleBmcEvents(_log client.EventLog) {
 		// fmt.Println("BTP_EVENT")
 	}
 }
-

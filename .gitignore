@@ -1,3 +1,5 @@
 wallet/*
 !wallet/.keep
+logs/*
+!logs/.keep
 .env
