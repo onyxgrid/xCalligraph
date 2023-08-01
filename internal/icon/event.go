@@ -19,19 +19,17 @@ func GetEvents(_hash *v3.TransactionHashParam) error {
 	}
 
 	// height, _ := tx.BlockHeight.Int64()
-
 	// fmt.Println("checking events of txs in block:", height)
-	// fmt.Printf("amount of event logs: %v\n", len(tx.EventLogs))
-	
+
 	logs := tx.EventLogs
-	
+
 	for _, log := range logs {
 		address := log.Addr
-		
-		if address == BMC_ADDRESS {
+
+		if address.Address().String() == BMC_ADDRESS {
 			HandleBmcEvents(log)
 		}
-		if address == XCALL_ADDRESS {
+		if address.Address().String() == XCALL_ADDRESS {
 			HandleXCallEvents(log)
 		}
 	}
@@ -47,7 +45,7 @@ func HandleXCallEvents(_log client.EventLog) {
 		xCallData := *_log.Data[1]
 		btpAddressCaller := *_log.Indexed[1]
 
-		if btpAddressCaller == WL_BTP_ADDRESS {
+		if btpAddressCaller == BTP_ADDRESS_TO_TRACK {
 			err := callExecuteCall(xCallRequestID, xCallData)
 			if err != nil {
 				fmt.Println("callExecuteCall error:", err)
@@ -58,8 +56,7 @@ func HandleXCallEvents(_log client.EventLog) {
 
 // Handle the eventlogs send by the bmc contract
 func HandleBmcEvents(_log client.EventLog) {
-
-	if *_log.Indexed[0] == BTP_EVENT {
-		// fmt.Println("BTP_EVENT")
-	}
+	// if *_log.Indexed[0] == BTP_EVENT {
+	// 	fmt.Println("BTP_EVENT")
+	// }
 }

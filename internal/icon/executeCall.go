@@ -9,8 +9,6 @@ import (
 
 // Send a transaction to the 'executeCall' method on the xCall contract.
 func callExecuteCall(_reqId string, _data string) error {
-	// not sure if we can leave the params as strings
-
 	// the address of the contract
 	method := "executeCall"
 

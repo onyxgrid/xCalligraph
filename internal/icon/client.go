@@ -14,8 +14,11 @@ import (
 
 var (
 	// ClientMain *client.ClientV3
-	Client *client.ClientV3 = nil
-	Wallet module.Wallet    = nil
+	Client               *client.ClientV3 = nil
+	Wallet               module.Wallet    = nil
+	BTP_ADDRESS_TO_TRACK string
+	XCALL_ADDRESS        string
+	BMC_ADDRESS          string
 )
 
 func init() {
@@ -27,6 +30,9 @@ func init() {
 	}
 
 	password := os.Getenv("WALLET_PASSWORD")
+	BTP_ADDRESS_TO_TRACK = os.Getenv("BTP_ADDRESS_TO_TRACK=")
+	XCALL_ADDRESS = os.Getenv("BERLIN_XCALL_ADDRESS")
+	BMC_ADDRESS = os.Getenv("BERLIN_BMC_ADDRESS")
 
 	// err as a seperate var so we do not have to redeclare Wallet by using :=
 	var _err error

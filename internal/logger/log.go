@@ -27,9 +27,6 @@ func init() {
 	// Get the date
 	date := time.Now().Format("2006-01-02")
 
-	// Get hours, minutes and seconds
-	// time := time.Now().Format("15-04-05")
-
 	// Create the log file
 	filePath := filepath.Join(dir, "logs", date + ".log")
 
