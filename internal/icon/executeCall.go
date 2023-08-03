@@ -7,31 +7,46 @@ import (
 	"github.com/paulrouge/xcall-event-watcher/internal/logger"
 )
 
-// Send a transaction to the 'executeCall' method on the xCall contract.
-func callExecuteCall(_reqId string, _data string) error {
-	// the address of the contract
-	method := "executeCall"
+var handledReqIDs []string
 
-	// the params for the method,
-	params := map[string]interface{}{
-		"_reqId": _reqId,
-		"_data":  _data,
+// Handles the reqIdAndData channel.
+// Calls the 'executeCall' method on the xCall contract.
+func CallExecuteCall() {
+
+	for {
+		r := <- ReqIdAndDataChan
+		for _, reqID := range handledReqIDs {
+			if reqID == r.ReqId {
+				return
+			}
+		}
+		
+		// the address of the contract
+		method := "executeCall"
+
+		// the params for the method,
+		params := map[string]interface{}{
+			"_reqId": r.ReqId,
+			"_data": r.Data,
+		}
+
+		value := big.NewInt(0)
+
+		// We need to sign the tx, so we use the TransactionBuilder.
+		tx := transactions.TransactionBuilder(Wallet.Address(), XCALL_ADDRESS, method, params, value)
+
+		handledReqIDs = append(handledReqIDs, r.ReqId)
+
+		// sign the tx
+		hash, err := Client.SendTransaction(Wallet, tx)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		// fmt.Println(*hash) // Returns the hash of the tx.
+		msg := fmt.Sprintf("\nexecuteCall called on Berlin xCall contract.\nreqId: %v\ndata: %v\ntx: %v\n", r.ReqId, r.Data, *hash)
+		logger.LogMessage(msg)
+
+		// Client.WaitTransactionResult()
 	}
-
-	value := big.NewInt(0)
-
-	// We need to sign the tx, so we use the TransactionBuilder.
-	tx := transactions.TransactionBuilder(Wallet.Address(), XCALL_ADDRESS, method, params, value)
-
-	// sign the tx
-	hash, err := Client.SendTransaction(Wallet, tx)
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	// fmt.Println(*hash) // Returns the hash of the tx.
-
-	logger.Logger.Printf("\nexecuteCall called on Berlin xCall contract.\nreqId: %v\ndata: %v\ntx: %v\n", _reqId, _data, *hash)
-
-	return nil
 }

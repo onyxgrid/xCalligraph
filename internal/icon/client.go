@@ -13,12 +13,12 @@ import (
 )
 
 var (
-	// ClientMain *client.ClientV3
 	Client               *client.ClientV3 = nil
 	Wallet               module.Wallet    = nil
 	BTP_ADDRESS_TO_TRACK string
 	XCALL_ADDRESS        string
 	BMC_ADDRESS          string
+	RELAY_ADDRESS        string
 )
 
 func init() {
@@ -29,20 +29,25 @@ func init() {
 		log.Fatal("Error loading .env file")
 	}
 
-	password := os.Getenv("WALLET_PASSWORD")
-	BTP_ADDRESS_TO_TRACK = os.Getenv("BTP_ADDRESS_TO_TRACK=")
+	PASSWORD := os.Getenv("WALLET_PASSWORD")
+	BTP_ADDRESS_TO_TRACK = os.Getenv("BTP_ADDRESS_TO_TRACK")
 	XCALL_ADDRESS = os.Getenv("BERLIN_XCALL_ADDRESS")
 	BMC_ADDRESS = os.Getenv("BERLIN_BMC_ADDRESS")
 
+	// check if any of the env vars are empty, panic if so
+	if PASSWORD == "" || BTP_ADDRESS_TO_TRACK == "" || XCALL_ADDRESS == "" || BMC_ADDRESS == "" {
+		panic("One or more env vars are empty. Please check your .env file.")
+	}
+
 	// err as a seperate var so we do not have to redeclare Wallet by using :=
 	var _err error
-	Wallet, _err = wallet.LoadWallet("./wallet/keystore", password)
+	Wallet, _err = wallet.LoadWallet("./wallet/keystore", PASSWORD)
 	if _err != nil {
 		panic(_err)
 	}
 }
 
-// call with 'lisbon' or empty for main
+// Call with 'Berlin' or empty for main.
 func GetClient(args ...string) *client.ClientV3 {
 
 	if len(args) == 0 {

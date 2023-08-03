@@ -6,7 +6,7 @@ import (
 
 func main() {
 
-	// ...
+	go icon.CallExecuteCall()
 	go icon.CheckBlocks()
 	go icon.HandleBlock()
 	go icon.HandleTransaction()

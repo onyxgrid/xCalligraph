@@ -4,18 +4,10 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"time"
 )
 
-func createLogFile(filename string) (*os.File, error) {
-	file, err := os.Create(filename)
-	if err != nil {
-		return nil, err
-	}
-	return file, nil
-}
-
-var Logger *log.Logger
+var logger *log.Logger
+var logChan chan string
 
 func init() {
 	// Get the current working directory
@@ -24,20 +16,30 @@ func init() {
 		log.Fatal("Failed to get current working directory:", err)
 	}
 
-	// Get the date
-	date := time.Now().Format("2006-01-02")
-
 	// Create the log file
-	filePath := filepath.Join(dir, "logs", date + ".log")
+	filePath := filepath.Join(dir, "logs", "transactions.log")
 
 	// If file doesn't exist, create it, or append to the file
-	file, err := os.OpenFile(filePath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	file, err := os.OpenFile(filePath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	if err != nil {
 		log.Fatal("Failed to create log file:", err)
 	}
 
 	// Initialize the logger
-	Logger = log.New(file, "\nxCall Event Watcher: ", log.LstdFlags)
+	logger = log.New(file, "xCall Event Watcher: ", log.LstdFlags)
 	// If you want to log to the console, use this line instead:
 	// logger = log.New(os.Stdout, "MyApp: ", log.LstdFlags)
+
+	logChan = make(chan string, 100) // Buffer size 100 (adjust based on your needs)
+	go logHandler()
+}
+
+func logHandler() {
+	for msg := range logChan {
+		logger.Println(msg)
+	}
+}
+
+func LogMessage(msg string) {
+	logChan <- msg
 }

@@ -5,6 +5,7 @@ import (
 
 	"github.com/icon-project/goloop/client"
 	v3 "github.com/icon-project/goloop/server/v3"
+
 )
 
 const (
@@ -12,6 +13,8 @@ const (
 	CALLMESSAGE_EVENT = "CallMessage(str,str,int,int,bytes)"
 )
 
+
+// Get all events from the transaction.
 func GetEvents(_hash *v3.TransactionHashParam) error {
 	tx, err := Client.GetTransactionResult(_hash)
 	if err != nil {
@@ -25,37 +28,47 @@ func GetEvents(_hash *v3.TransactionHashParam) error {
 
 	for _, log := range logs {
 		address := log.Addr
+		
+		// logger.Logger.Printf("Event from: %v", address.Address().String())
 
 		if address.Address().String() == BMC_ADDRESS {
-			HandleBmcEvents(log)
+			HandleBMCEvents(log)
 		}
 		if address.Address().String() == XCALL_ADDRESS {
-			HandleXCallEvents(log)
+			HandleXCallEvents(log, address.Address().String(), )
 		}
 	}
 
 	return nil
 }
 
-// Handle the eventlogs send by the xcall contract
-func HandleXCallEvents(_log client.EventLog) {
-	if *_log.Indexed[0] == CALLMESSAGE_EVENT {
+// Handle the eventlogs send by the xcall contract.
+// 
+// If the event is a 'CallMessage(str,str,int,int,bytes)' event, 
+// we call the 'executeCall' method on the xCall contract.
+func HandleXCallEvents(_log client.EventLog, _testAdr string) {
+	
+	eventName := *_log.Indexed[0]
+
+	if eventName == CALLMESSAGE_EVENT {
 
 		xCallRequestID := *_log.Data[0]
 		xCallData := *_log.Data[1]
 		btpAddressCaller := *_log.Indexed[1]
-
+		
 		if btpAddressCaller == BTP_ADDRESS_TO_TRACK {
-			err := callExecuteCall(xCallRequestID, xCallData)
-			if err != nil {
-				fmt.Println("callExecuteCall error:", err)
+			newReqIdAndData := reqIdAndData{
+				ReqId: xCallRequestID,
+				Data: xCallData,
 			}
+
+			ReqIdAndDataChan <- newReqIdAndData
 		}
 	}
 }
 
-// Handle the eventlogs send by the bmc contract
-func HandleBmcEvents(_log client.EventLog) {
+// Handle the eventlogs send by the bmc contract.
+func HandleBMCEvents(_log client.EventLog) {
 	// if *_log.Indexed[0] == BTP_EVENT {
 	// 	fmt.Println("BTP_EVENT")
 	// }
