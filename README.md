@@ -1,4 +1,4 @@
-# xCall event watcher
+# xCall Event Watcher
 
 <p align="center">
 
@@ -18,7 +18,7 @@
 
 
 
-xCall-event-watcher tracks the ICON Blockchain for xCall events. Especially sendMessage events. Triggers a executeCall tx when a sendMessage event is found.
+xCall-Event-Watcher tracks the ICON Blockchain for xCall events. Especially sendMessage events. Triggers a executeCall tx when a sendMessage event is found.
 
 If you hook up a wallet with funds to the watcher it will automatically send the executeCall tx.
 
