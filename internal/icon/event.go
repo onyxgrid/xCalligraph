@@ -35,7 +35,7 @@ func GetEvents(_hash *v3.TransactionHashParam) error {
 			HandleBMCEvents(log)
 		}
 		if address.Address().String() == XCALL_ADDRESS {
-			HandleXCallEvents(log, address.Address().String(), )
+			HandleXCallEvents(log)
 		}
 	}
 
@@ -46,7 +46,7 @@ func GetEvents(_hash *v3.TransactionHashParam) error {
 // 
 // If the event is a 'CallMessage(str,str,int,int,bytes)' event, 
 // we call the 'executeCall' method on the xCall contract.
-func HandleXCallEvents(_log client.EventLog, _testAdr string) {
+func HandleXCallEvents(_log client.EventLog) {
 	
 	eventName := *_log.Indexed[0]
 
