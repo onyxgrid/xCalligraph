@@ -4,21 +4,23 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 
 	"github.com/eyeonicon/go-icon-sdk/networks"
 	"github.com/eyeonicon/go-icon-sdk/wallet"
 	"github.com/icon-project/goloop/client"
 	"github.com/icon-project/goloop/module"
 	"github.com/joho/godotenv"
+	"github.com/paulrouge/xcall-event-watcher/internal/config"
 )
 
 var (
-	Client               *client.ClientV3 = nil
-	Wallet               module.Wallet    = nil
-	BTP_ADDRESS_TO_TRACK string
-	XCALL_ADDRESS        string
-	BMC_ADDRESS          string
-	RELAY_ADDRESS        string
+	Client                 *client.ClientV3 = nil
+	Wallet                 module.Wallet    = nil
+	BTP_ADDRESSES_TO_TRACK []string
+	XCALL_ADDRESS          string
+	BMC_ADDRESS            string
+	RELAY_ADDRESS          string
 )
 
 func init() {
@@ -30,13 +32,24 @@ func init() {
 	}
 
 	PASSWORD := os.Getenv("WALLET_PASSWORD")
-	BTP_ADDRESS_TO_TRACK = os.Getenv("BTP_ADDRESS_TO_TRACK")
+	BTP_ADDRESS_LINE := os.Getenv("BTP_ADDRESS_TO_TRACK")
 	XCALL_ADDRESS = os.Getenv("BERLIN_XCALL_ADDRESS")
 	BMC_ADDRESS = os.Getenv("BERLIN_BMC_ADDRESS")
 
 	// check if any of the env vars are empty, panic if so
-	if PASSWORD == "" || BTP_ADDRESS_TO_TRACK == "" || XCALL_ADDRESS == "" || BMC_ADDRESS == "" {
+	if PASSWORD == "" || BTP_ADDRESS_LINE == "" || XCALL_ADDRESS == "" || BMC_ADDRESS == "" {
 		panic("One or more env vars are empty. Please check your .env file.")
+	}
+
+	// split the BTP_ADDRESS_LINE string at commas, MOVE TO CONFIG
+	BTP_ADDRESSES_TO_TRACK = strings.Split(BTP_ADDRESS_LINE, ",")
+
+	if config.TestMode {
+		fmt.Println("")
+		for adr := range BTP_ADDRESSES_TO_TRACK {
+			fmt.Println("BTP_ADDRESS_TO_TRACK:", BTP_ADDRESSES_TO_TRACK[adr])
+		}
+		fmt.Println("")
 	}
 
 	// err as a seperate var so we do not have to redeclare Wallet by using :=

@@ -7,7 +7,7 @@ import (
 
 type reqIdAndData struct {
 	ReqId string
-	Data string
+	Data  string
 }
 
 var CurBlockChan = make(chan *client.Block, 1)

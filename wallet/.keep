@@ -1,0 +1,3 @@
+The wallet directory is used to keep a keystore file for JVM wallets?
+
+note to self: could also just go with using private keys in the .env

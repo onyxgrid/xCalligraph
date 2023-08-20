@@ -3,7 +3,9 @@ package icon
 import (
 	"fmt"
 	"math/big"
+
 	"github.com/eyeonicon/go-icon-sdk/transactions"
+	"github.com/paulrouge/xcall-event-watcher/internal/config"
 	"github.com/paulrouge/xcall-event-watcher/internal/logger"
 )
 
@@ -29,13 +31,18 @@ func CallExecuteCall() {
 			"_reqId": r.ReqId,
 			"_data": r.Data,
 		}
-
+		
 		value := big.NewInt(0)
 
 		// We need to sign the tx, so we use the TransactionBuilder.
 		tx := transactions.TransactionBuilder(Wallet.Address(), XCALL_ADDRESS, method, params, value)
 
 		handledReqIDs = append(handledReqIDs, r.ReqId)
+
+		if config.TestMode {
+			fmt.Printf("\nexecuteCall called on Berlin xCall contract.\nreqId: %v\ndata: %v\n", r.ReqId, r.Data)
+			return
+		}
 
 		// sign the tx
 		hash, err := Client.SendTransaction(Wallet, tx)

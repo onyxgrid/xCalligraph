@@ -3,4 +3,4 @@ wallet/*
 logs/*
 !logs/.keep
 .env
-internal/evm/*
+# internal/evm/*
