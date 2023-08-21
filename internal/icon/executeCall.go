@@ -9,9 +9,11 @@ import (
 	"github.com/paulrouge/xcall-event-watcher/internal/logger"
 )
 
+// i don't think this is needed actually
 var handledReqIDs []string
 
 // Handles the reqIdAndData channel.
+//
 // Calls the 'executeCall' method on the xCall contract.
 func CallExecuteCall() {
 
@@ -23,7 +25,7 @@ func CallExecuteCall() {
 			}
 		}
 		
-		// the address of the contract
+		// the method of the contract
 		method := "executeCall"
 
 		// the params for the method,
@@ -35,7 +37,7 @@ func CallExecuteCall() {
 		value := big.NewInt(0)
 
 		// We need to sign the tx, so we use the TransactionBuilder.
-		tx := transactions.TransactionBuilder(Wallet.Address(), XCALL_ADDRESS, method, params, value)
+		tx := transactions.TransactionBuilder(Wallet.Address(), config.XCALL_ADDRESS, method, params, value)
 
 		handledReqIDs = append(handledReqIDs, r.ReqId)
 
