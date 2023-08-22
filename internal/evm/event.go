@@ -43,20 +43,24 @@ func EVMGetEvents(_hash string) {
 				if err != nil {
 					return
 				}
-				_reqId := t[0]
+				_reqId := t[0].(*big.Int)
 				_data := t[1].([]byte) // this is a []uint8/[]byte type
 
-				// fmt.Println("dataIneed:", string(_data))
+				// fmt.Printf("reqId type: %T\n", _reqId)
+				// fmt.Println("reqId:", t[0])
+				// fmt.Println("data:", t[1])
+				// fmt.Println("data:", _data)
+
+				// hexStringData := hex.EncodeToString(_data)
+
+				// fmt.Println(hexStringData)
 
 				newReqIdAndData := reqIdAndData{
-					ReqId: "0x" + _reqId.(*big.Int).Text(16),
-					Data:  string(_data),
+					ReqId: _reqId,
+					Data:  _data,
 				}
-				// fmt.Println("got here")
-				// _ = newReqIdAndData
 
 				ReqIdAndDataChan <- newReqIdAndData
-
 			}
 		}
 	}

@@ -17,17 +17,18 @@ const (
 // Get all events from the transaction.
 func GetEvents(_hash *v3.TransactionHashParam) error {
 	tx, err := Client.GetTransactionResult(_hash)
-
+	if err != nil {
+		return fmt.Errorf("GetTransactionResult error: %v", err)
+	}
 
 	// try out this: check to, only handle if to == xcall contract address
 	// not sure if tx can be nil...
 	to := tx.To.Address().String()
-	fmt.Println("to:", to)
 	toLowercase := strings.ToLower(to)
 	if toLowercase != config.BERLIN_BMC_ADDRESS {
 		return nil
 	}
-
+	
 	if err != nil {
 		return fmt.Errorf("GetTransactionByHash error: %v", err)
 	}

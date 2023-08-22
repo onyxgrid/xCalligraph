@@ -7,10 +7,11 @@ import (
 	"log"
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/paulrouge/xcall-event-watcher/internal/config"
-	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/paulrouge/xcall-event-watcher/internal/config"
+	"github.com/paulrouge/xcall-event-watcher/internal/logger"
 )
 
 // Handles the reqIdAndData channel.
@@ -19,14 +20,6 @@ import (
 func CallExecuteCall() {
 	for {
 		r := <-ReqIdAndDataChan
-
-		fmt.Println("reqId:", r.ReqId)
-		// privateKeyHex := "YOUR_PRIVATE_KEY_HEX_WITHOUT_PREFIX"
-		// var err error
-		privateKey, err := crypto.HexToECDSA(privateKeyHex)
-		if err != nil {
-			log.Fatal(err)
-		}
 
 		publicKey := privateKey.Public()
 		publicKeyECDSA, ok := publicKey.(*ecdsa.PublicKey)
@@ -43,15 +36,20 @@ func CallExecuteCall() {
 		gasLimit := uint64(1000000)
 		gasPrice, err := EVMClient.SuggestGasPrice(context.Background())
 		if err != nil {
-			fmt.Println(err)
+			fmt.Println("error at gasprice suggestion - ", err)
 		}
 
 		toAddress := common.HexToAddress(config.SEPOLIA_XCALL_ADDRESS)
+		// reqId := new(big.Int)
+		// reqId.SetString(r.ReqId, 0)
+
+		fmt.Println("data - ", []byte(r.Data))
+		fmt.Println("reqId - ", r.ReqId)
 
 		// Encode the function call data using the ABI
 		data, err := contractAbi.Pack("executeCall", r.ReqId, r.Data)
 		if err != nil {
-			log.Fatal(err)
+			log.Fatal("error at abi encoding - ", err)
 		}
 
 		tx := types.NewTransaction(nonce, toAddress, big.NewInt(0), gasLimit, gasPrice, data)
@@ -59,18 +57,21 @@ func CallExecuteCall() {
 		if err != nil {
 			log.Fatal(err)
 		}
-	
+
 		signedTx, err := types.SignTx(tx, types.NewEIP155Signer(chainID), privateKey)
+		if err != nil {
+			log.Fatal("error at signing tx", err)
+		}
+
+		// _ = signedTx
+
+		err = EVMClient.SendTransaction(context.Background(), signedTx)
 		if err != nil {
 			log.Fatal(err)
 		}
-	
-		// err = EVMClient.SendTransaction(context.Background(), signedTx)
-		// if err != nil {
-		// 	log.Fatal(err)
-		// }
-	
-		fmt.Printf("Transaction hash: %s\n", signedTx.Hash().Hex())
 
+		// msg := "\nexecuteCall called on Sepolia xCall contract.\nreqId: 0x" + r.ReqId + "\ndata: " + r.Data + "\ntx: " + signedTx.Hash().Hex() + "\n"
+		msg := fmt.Sprintf("\nexecuteCall called on Sepolia xCall contract.\nreqId: 0x%s\ndata: %s\ntx: %s\n", r.ReqId, r.Data, signedTx.Hash().Hex())
+		logger.LogMessage(msg)
 	}
 }

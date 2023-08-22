@@ -8,12 +8,14 @@ import (
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/joho/godotenv"
 	"github.com/ethereum/go-ethereum/accounts/abi"
+	"crypto/ecdsa"
+	"github.com/ethereum/go-ethereum/crypto"
 )
 
 var (
 	EVMClient *Client
 	contractAbi abi.ABI
-	privateKeyHex string
+	privateKey *ecdsa.PrivateKey
 )
 
 // var Wallet
@@ -47,6 +49,11 @@ func init() {
 	privateKeyHex := os.Getenv("SEPOLIA_PRIVATE_KEY")
 	if privateKeyHex == "" {
 		panic("SEPOLIA_PRIVATE_KEY is empty. Please check your .env file.")
+	}
+
+	privateKey, err = crypto.HexToECDSA(privateKeyHex)
+	if err != nil {
+		log.Fatal("error getting privatekey - ",err)
 	}
 
 	// xCall contract ABI

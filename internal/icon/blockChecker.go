@@ -91,7 +91,7 @@ func HandleBlock() {
 		b := <-CurBlockChan
 
 		// for testing. log the block height.
-		fmt.Printf("Block %d\n", b.Height)
+		// fmt.Printf("Block %d\n", b.Height)
 
 		for _, rawTx := range b.NormalTransactions {
 			// rawTx is a []byte, convert to TransactionHashParam

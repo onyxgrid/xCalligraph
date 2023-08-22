@@ -1,10 +1,14 @@
 package evm
 
-import "github.com/ethereum/go-ethereum/core/types"
+import (
+	"math/big"
+
+	"github.com/ethereum/go-ethereum/core/types"
+)
 
 type reqIdAndData struct {
-	ReqId string
-	Data  string
+	ReqId *big.Int 
+	Data  []byte 
 }
 
 var CurBlockChan = make(chan *types.Block, 1)

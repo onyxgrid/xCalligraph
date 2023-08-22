@@ -41,10 +41,10 @@ func CallExecuteCall() {
 
 		handledReqIDs = append(handledReqIDs, r.ReqId)
 
-		if config.TestMode {
-			fmt.Printf("\nexecuteCall called on Berlin xCall contract.\nreqId: %v\ndata: %v\n", r.ReqId, r.Data)
-			return
-		}
+		// if config.TestMode {
+		// 	fmt.Printf("\nexecuteCall called on Berlin xCall contract.\nreqId: %v\ndata: %v\n", r.ReqId, r.Data)
+		// 	return
+		// }
 
 		// sign the tx
 		hash, err := Client.SendTransaction(Wallet, tx)
