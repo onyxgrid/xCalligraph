@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: xcall-event-watcher
+    container_name: xcalligraph
     volumes:
       - ./logs:/app/logs
     restart: always
