@@ -1,4 +1,4 @@
-module github.com/paulrouge/xcall-event-watcher
+module github.com/paulrouge/xCalligraph
 
 go 1.19
 

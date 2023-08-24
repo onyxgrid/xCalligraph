@@ -5,8 +5,8 @@ import (
 	"math/big"
 
 	"github.com/eyeonicon/go-icon-sdk/transactions"
-	"github.com/paulrouge/xcall-event-watcher/internal/config"
-	"github.com/paulrouge/xcall-event-watcher/internal/logger"
+	"github.com/paulrouge/xCalligraph/internal/config"
+	"github.com/paulrouge/xCalligraph/internal/logger"
 )
 
 // i don't think this is needed actually

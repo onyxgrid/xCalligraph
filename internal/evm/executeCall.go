@@ -10,8 +10,8 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/paulrouge/xcall-event-watcher/internal/config"
-	"github.com/paulrouge/xcall-event-watcher/internal/logger"
+	"github.com/paulrouge/xCalligraph/internal/config"
+	"github.com/paulrouge/xCalligraph/internal/logger"
 )
 
 // Handles the reqIdAndData channel.
@@ -39,9 +39,10 @@ func CallExecuteCall() {
 			fmt.Println("error at gasprice suggestion - ", err)
 		}
 
+		// add 10% to the suggested gas price
+		gasPrice = gasPrice.Mul(gasPrice, big.NewInt(110))
+
 		toAddress := common.HexToAddress(config.SEPOLIA_XCALL_ADDRESS)
-		// reqId := new(big.Int)
-		// reqId.SetString(r.ReqId, 0)
 
 		fmt.Println("data - ", []byte(r.Data))
 		fmt.Println("reqId - ", r.ReqId)

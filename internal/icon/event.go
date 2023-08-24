@@ -6,7 +6,7 @@ import (
 
 	"github.com/icon-project/goloop/client"
 	v3 "github.com/icon-project/goloop/server/v3"
-	"github.com/paulrouge/xcall-event-watcher/internal/config"
+	"github.com/paulrouge/xCalligraph/internal/config"
 )
 
 const (

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/paulrouge/xcall-event-watcher/internal/evm"
-	"github.com/paulrouge/xcall-event-watcher/internal/icon"
+	"github.com/paulrouge/xCalligraph/internal/evm"
+	"github.com/paulrouge/xCalligraph/internal/icon"
 )
 
 func main() {

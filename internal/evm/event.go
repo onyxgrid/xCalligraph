@@ -5,7 +5,7 @@ import (
 	"math/big"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/paulrouge/xcall-event-watcher/internal/config"
+	"github.com/paulrouge/xCalligraph/internal/config"
 	"golang.org/x/crypto/sha3"
 )
 

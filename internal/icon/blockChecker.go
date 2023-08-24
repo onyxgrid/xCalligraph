@@ -8,8 +8,8 @@ import (
 
 	"github.com/icon-project/goloop/server/jsonrpc"
 	v3 "github.com/icon-project/goloop/server/v3"
-	"github.com/paulrouge/xcall-event-watcher/internal/config"
-	"github.com/paulrouge/xcall-event-watcher/internal/logger"
+	"github.com/paulrouge/xCalligraph/internal/config"
+	"github.com/paulrouge/xCalligraph/internal/logger"
 	// TWO BELOW ARE FOR TESTING
 	// "strconv"
 	// "github.com/icon-project/goloop/server/jsonrpc"

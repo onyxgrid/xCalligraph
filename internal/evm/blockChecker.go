@@ -6,7 +6,7 @@ import (
 	"math/big"
 	"time"
 
-	"github.com/paulrouge/xcall-event-watcher/internal/config"
+	"github.com/paulrouge/xCalligraph/internal/config"
 )
 
 func CheckBlocks() {
