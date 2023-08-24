@@ -11,8 +11,8 @@
   </a>
 
   <!-- make one for go ref stuff -->
-  <a href="https://goreportcard.com/report/github.com/paulrouge/xCall-event-watcher">
-    <img src="https://goreportcard.com/badge/github.com/paulrouge/xCall-event-watcher" alt="Go Report Card">
+  <a href="https://goreportcard.com/report/github.com/paulrouge/xCalligraph">
+    <img src="https://goreportcard.com/badge/github.com/paulrouge/xCalligraph" alt="Go Report Card">
   </a>
 </p>
 
@@ -47,7 +47,7 @@ To stop the container run `make stop`.
 Keep in mind that you have to udpate the contract addresses in the .env file. Especially during testing this is something that is easily forgotten. If you don't update the contract addresses xCalligraph will not work.
 
 ## Issues
-- [] for some reason call-messages are ignored when a bunch in a row are sent? 
+- [] for some reason call-messages are ignored when a bunch in a row are sent? In one example there were 3 callmessages in 1 block (block 4149075), only one (the first) got exectued by xCalligraph.
 
 ## TODO
 - [] add rpc endpoint to .env file, should be possible to switch to any evm or jvm chain then?
