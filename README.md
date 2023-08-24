@@ -1,4 +1,4 @@
-# xCall Event Watcher
+# xCalligraph
 
 <p align="center">
 
@@ -18,9 +18,9 @@
 
 
 
-xCall-Event-Watcher tracks the ICON Blockchain for xCall events. Especially sendMessage events. Triggers a executeCall tx when a sendMessage event is found.
+xCalligraph tracks the ICON Blockchain for xCall events. Especially sendMessage events. Triggers a executeCall tx when a sendMessage event is found.
 
-If you hook up a wallet with funds to the watcher it will automatically send the executeCall tx.
+If you hook up a wallet with funds to xCalligraph it will automatically send the executeCall tx.
 
 Atm it will be connected to the Berlin testnet. So it will only work with Berlin testnet as destination chain.
 
@@ -43,3 +43,11 @@ Make sure to have Docker and docker-compose installed. Then simply run `make run
 
 To stop the container run `make stop`.
 
+## What could go wrong when using this
+Keep in mind that you have to udpate the contract addresses in the .env file. Especially during testing this is something that is easily forgotten. If you don't update the contract addresses xCalligraph will not work.
+
+## Issues
+- [] for some reason call-messages are ignored when a bunch in a row are sent? 
+
+## TODO
+- [] add rpc endpoint to .env file, should be possible to switch to any evm or jvm chain then?
