@@ -5,17 +5,17 @@ import (
 	"os"
 	"strings"
 
+	"crypto/ecdsa"
+	"github.com/ethereum/go-ethereum/accounts/abi"
+	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/joho/godotenv"
-	"github.com/ethereum/go-ethereum/accounts/abi"
-	"crypto/ecdsa"
-	"github.com/ethereum/go-ethereum/crypto"
 )
 
 var (
-	EVMClient *Client
+	EVMClient   *Client
 	contractAbi abi.ABI
-	privateKey *ecdsa.PrivateKey
+	privateKey  *ecdsa.PrivateKey
 )
 
 // var Wallet
@@ -53,7 +53,7 @@ func init() {
 
 	privateKey, err = crypto.HexToECDSA(privateKeyHex)
 	if err != nil {
-		log.Fatal("error getting privatekey - ",err)
+		log.Fatal("error getting privatekey - ", err)
 	}
 
 	// xCall contract ABI

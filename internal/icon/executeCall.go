@@ -18,22 +18,22 @@ var handledReqIDs []string
 func CallExecuteCall() {
 
 	for {
-		r := <- ReqIdAndDataChan
+		r := <-ReqIdAndDataChan
 		for _, reqID := range handledReqIDs {
 			if reqID == r.ReqId {
 				return
 			}
 		}
-		
+
 		// the method of the contract
 		method := "executeCall"
 
 		// the params for the method,
 		params := map[string]interface{}{
 			"_reqId": r.ReqId,
-			"_data": r.Data,
+			"_data":  r.Data,
 		}
-		
+
 		value := big.NewInt(0)
 
 		// We need to sign the tx, so we use the TransactionBuilder.

@@ -7,8 +7,8 @@ import (
 )
 
 type reqIdAndData struct {
-	ReqId *big.Int 
-	Data  []byte 
+	ReqId *big.Int
+	Data  []byte
 }
 
 var CurBlockChan = make(chan *types.Block, 1)

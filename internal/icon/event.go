@@ -28,7 +28,7 @@ func GetEvents(_hash *v3.TransactionHashParam) error {
 	if toLowercase != config.BERLIN_BMC_ADDRESS {
 		return nil
 	}
-	
+
 	if err != nil {
 		return fmt.Errorf("GetTransactionByHash error: %v", err)
 	}
