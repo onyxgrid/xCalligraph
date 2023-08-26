@@ -24,8 +24,7 @@ func GetEvents(_hash *v3.TransactionHashParam) error {
 	// try out this: check to, only handle if to == xcall contract address
 	// not sure if tx can be nil...
 	to := tx.To.Address().String()
-	toLowercase := strings.ToLower(to)
-	if toLowercase != config.BERLIN_BMC_ADDRESS {
+	if !strings.EqualFold(to, config.BERLIN_BMC_ADDRESS) {	
 		return nil
 	}
 
@@ -43,10 +42,12 @@ func GetEvents(_hash *v3.TransactionHashParam) error {
 		// fmt.Printf("Event from: %v\n", address.Address().String())
 		// logger.Logger.Printf("Event from: %v", address.Address().String())
 
-		if address.Address().String() == config.BERLIN_BMC_ADDRESS {
+		// if address.Address().String() == config.BERLIN_BMC_ADDRESS {
+		if strings.EqualFold(address.Address().String(), config.BERLIN_BMC_ADDRESS) {
 			HandleBMCEvents(log)
 		}
-		if address.Address().String() == config.XCALL_ADDRESS {
+		// if address.Address().String() == config.XCALL_ADDRESS {
+		if strings.EqualFold(address.Address().String(), config.XCALL_ADDRESS) {
 			HandleXCallEvents(log)
 		}
 	}
@@ -64,11 +65,12 @@ func HandleXCallEvents(_log client.EventLog) {
 		xCallRequestID := *_log.Data[0]
 		xCallData := *_log.Data[1]
 		btpAddressCaller := *_log.Indexed[1]
-		callerLowercase := strings.ToLower(btpAddressCaller)
+		// callerLowercase := strings.ToLower(btpAddressCaller)
 
 		for _, btpAddress := range config.BTP_ADDRESSES_TO_TRACK {
-			btpAdrressToTrackLowercase := strings.ToLower(btpAddress)
-			if callerLowercase == btpAdrressToTrackLowercase {
+			// btpAdrressToTrackLowercase := strings.ToLower(btpAddress)
+			// if callerLowercase == btpAdrressToTrackLowercase {
+			if strings.EqualFold(btpAddressCaller, btpAddress) {
 				newReqIdAndData := reqIdAndData{
 					ReqId: xCallRequestID,
 					Data:  xCallData,
