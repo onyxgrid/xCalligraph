@@ -65,11 +65,7 @@ func HandleXCallEvents(_log client.EventLog) {
 		xCallRequestID := *_log.Data[0]
 		xCallData := *_log.Data[1]
 		btpAddressCaller := *_log.Indexed[1]
-		// callerLowercase := strings.ToLower(btpAddressCaller)
-
 		for _, btpAddress := range config.BTP_ADDRESSES_TO_TRACK {
-			// btpAdrressToTrackLowercase := strings.ToLower(btpAddress)
-			// if callerLowercase == btpAdrressToTrackLowercase {
 			if strings.EqualFold(btpAddressCaller, btpAddress) {
 				newReqIdAndData := reqIdAndData{
 					ReqId: xCallRequestID,

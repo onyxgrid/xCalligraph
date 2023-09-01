@@ -18,14 +18,14 @@ var (
 )
 
 func init() {
-	Client = GetClient("berlin")
-
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-
-	PASSWORD := os.Getenv("WALLET_PASSWORD")
+	
+	Client = GetClient("berlin")
+	
+	PASSWORD := os.Getenv("BERLIN_WALLET_PASSWORD")
 
 	if PASSWORD == "" {
 		panic("WALLET_PASSWORD is empty. Please check your .env file.")
@@ -51,7 +51,7 @@ func GetClient(args ...string) *client.ClientV3 {
 	}
 
 	if args[0] == "berlin" {
-		fmt.Println("Connecting to Berlin...")
+		// fmt.Println("Connecting to Berlin...")
 
 		berlinNetwork := networks.Network{
 			URL: "https://berlin.net.solidwallet.io/api/v3",

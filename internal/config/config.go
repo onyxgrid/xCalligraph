@@ -27,17 +27,20 @@ var (
 // Atm testmode only prints to console instead of signing a execute call tx
 
 func init() {
+	// test for test flag
+	args := os.Args
+	if len(args) == 2 {
+		if args[1] == "test" {
+			TestMode = true
+			fmt.Printf("\nRunning in test mode. Be sure that the blocks to check are set correctly in .env\n\n")
+		} else {
+			TestMode = false
+		}
+	}
 
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Error loading .env file")
-	}
-
-	if os.Getenv("TEST_MODE") == "true" {
-		TestMode = true
-		fmt.Println("TestMode is true")
-	} else {
-		TestMode = false
 	}
 
 	SEPOLIA_BMC_ADDRESS = os.Getenv("SEPOLIA_BMC_ADDRESS")
@@ -78,7 +81,7 @@ func init() {
 	BerlinTestBlock := os.Getenv("BERLIN_TEST_BLOCKHEIGHT")
 	if BerlinTestBlock != "" {
 		BerlinTestBlockHeight, _ = strconv.ParseInt(BerlinTestBlock, 10, 64)
-		fmt.Println("BerlinTestBlockHeight: ", BerlinTestBlockHeight)
+		fmt.Println("Berlin Test BlockHeight: ", BerlinTestBlockHeight)
 	} else {
 		panic("BerlinTestBlockHeight is empty. Please check your .env file.")
 	}
@@ -87,7 +90,7 @@ func init() {
 	SepoliaTestBlock := os.Getenv("SEPOLIA_TEST_BLOCKHEIGHT")
 	if SepoliaTestBlock != "" {
 		SepoliaTestBlockHeight, _ = strconv.ParseInt(SepoliaTestBlock, 10, 64)
-		fmt.Println("SepoliaTestBlockHeight: ", SepoliaTestBlockHeight)
+		fmt.Println("Sepolia Test BlockHeight: ", SepoliaTestBlockHeight)
 	} else {
 		panic("SepoliaTestBlockHeight is empty. Please check your .env file.")
 	}
