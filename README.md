@@ -2,8 +2,8 @@
 
 <p align="center">
 
-  <a href="https://godoc.org/github.com/eyeonicon/go-icon-sdk">
-    <img src="https://godoc.org/github.com/eyeonicon/go-icon-sdk?status.svg" alt="GoDoc">
+  <a href="https://godoc.org/github.com/onyxgrid/xCalligraph">
+    <img src="https://godoc.org/github.com/onyxgrid/xCalligraph?status.svg" alt="GoDoc">
   </a>
 
   <a href="./LICENSE">
@@ -11,8 +11,8 @@
   </a>
 
   <!-- make one for go ref stuff -->
-  <a href="https://goreportcard.com/report/github.com/paulrouge/xCalligraph">
-    <img src="https://goreportcard.com/badge/github.com/paulrouge/xCalligraph" alt="Go Report Card">
+  <a href="https://goreportcard.com/report/github.com/onyxgrid/xCalligraph">
+    <img src="https://goreportcard.com/badge/github.com/onyxgrid/xCalligraph" alt="Go Report Card">
   </a>
 </p>
 
