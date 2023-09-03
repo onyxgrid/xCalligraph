@@ -2,9 +2,9 @@
 
 <p align="center">
 
-  <a href="https://godoc.org/github.com/onyxgrid/xCalligraph">
+  <!-- <a href="https://godoc.org/github.com/onyxgrid/xCalligraph">
     <img src="https://godoc.org/github.com/onyxgrid/xCalligraph?status.svg" alt="GoDoc">
-  </a>
+  </a> -->
 
   <a href="./LICENSE">
     <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT">
