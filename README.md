@@ -1,11 +1,5 @@
-# xCalligraph
 
 <p align="center">
-
-  <!-- <a href="https://godoc.org/github.com/onyxgrid/xCalligraph">
-    <img src="https://godoc.org/github.com/onyxgrid/xCalligraph?status.svg" alt="GoDoc">
-  </a> -->
-
   <a href="./LICENSE">
     <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT">
   </a>
@@ -16,7 +10,7 @@
   </a>
 </p>
 
-
+# xCalligraph
 
 xCalligraph tracks the ICON Blockchain for xCall events. Especially sendMessage events. Triggers a executeCall tx when a sendMessage event is found.
 
@@ -43,8 +37,15 @@ Make sure to have Docker and docker-compose installed. Then simply run `make run
 
 To stop the container run `make stop`.
 
-## What could go wrong when using this
-Keep in mind that you have to udpate the contract addresses in the .env file. Especially during testing this is something that is easily forgotten. If you don't update the contract addresses xCalligraph will not work.
+# How to run in test mode
+In testmoded you can run it with or without transaction signing. If you run it without signing it will only print the tx data to the console. If you run it with signing it will send the signed 'executeCall' transaction. The transaction will then also be logged to the transactions.log file.
 
-## Issues
-- [] for some reason call-messages are ignored when a bunch in a row are sent? In one example there were 3 callmessages in 1 block (block 4149075), only one (the first) got exectued by xCalligraph.
+Before you run a test, make sure to set the blocknumber you want to check for the xCall event in the `.env` file.
+
+To run in test mode without signing run `make test`. To run in test mode with signing run `make test-sign`. Needless to say that you need to have the correct wallet config set up in the `.env` file as well.
+
+## What could go wrong when using this
+Keep in mind that you have to update the contract addresses in the `.env` file. Especially during testing this is something that is easily forgotten. If you don't update the contract addresses xCalligraph will not work.
+
+## How to contribute
+If you want to contribute to this project, feel free to fork it and create a pull request. If you have any questions, feel free to open an issue.
