@@ -41,10 +41,11 @@ func CallExecuteCall() {
 
 		handledReqIDs = append(handledReqIDs, r.ReqId)
 
-		// if config.TestMode {
-		// 	fmt.Printf("\nexecuteCall called on Berlin xCall contract.\nreqId: %v\ndata: %v\n", r.ReqId, r.Data)
-		// 	return
-		// }
+		// if we are in test mode, just print the tx
+		if config.TestMode {
+			fmt.Printf("\nexecuteCall called on Berlin xCall contract.\nreqId: %v\ndata: %v\n", r.ReqId, r.Data)
+			return
+		}
 
 		// sign the tx
 		hash, err := Client.SendTransaction(Wallet, tx)
@@ -55,7 +56,5 @@ func CallExecuteCall() {
 		// fmt.Println(*hash) // Returns the hash of the tx.
 		msg := fmt.Sprintf("\nexecuteCall called on Berlin xCall contract.\nreqId: %v\ndata: %v\ntx: %v\n", r.ReqId, r.Data, *hash)
 		logger.LogMessage(msg)
-
-		// Client.WaitTransactionResult()
 	}
 }

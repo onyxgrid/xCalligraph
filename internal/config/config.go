@@ -12,8 +12,9 @@ import (
 )
 
 var (
-	TestMode               bool
-	BerlinTestBlockHeight  int64
+	TestMode               	bool
+	TestModeWithSigning		bool
+	BerlinTestBlockHeight  	int64
 	SepoliaTestBlockHeight int64
 	BTP_ADDRESSES_TO_TRACK []string
 	XCALL_ADDRESS          string
@@ -33,8 +34,13 @@ func init() {
 		if args[1] == "test" {
 			TestMode = true
 			fmt.Printf("\nRunning in test mode. Be sure that the blocks to check are set correctly in .env\n\n")
+		} else if args[1] == "testwithsigning" {
+			TestMode = true
+			TestModeWithSigning = true
+			fmt.Printf("\nRunning in test mode with signing. Be sure that the wallets, and blocks to check are set correctly in .env\n\n")
 		} else {
 			TestMode = false
+			TestModeWithSigning = false
 		}
 	}
 

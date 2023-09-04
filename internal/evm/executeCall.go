@@ -64,7 +64,11 @@ func CallExecuteCall() {
 			log.Fatal("error at signing tx", err)
 		}
 
-		// _ = signedTx
+		// if in test mode, just print the tx
+		if config.TestMode {
+			fmt.Printf("\nexecuteCall called on Sepolia xCall contract.\nreqId: 0x%s\ndata: %s\n", r.ReqId, r.Data)
+			return
+		}
 
 		err = EVMClient.SendTransaction(context.Background(), signedTx)
 		if err != nil {
