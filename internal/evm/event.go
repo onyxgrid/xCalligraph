@@ -17,8 +17,6 @@ import (
 // var BTPADDRESSBERLINDAPP = "btp://0x7.icon/cx39bf06738279054733580d179ce6eab0ed19a8c2"
 
 func EVMGetEvents(_hash string) {
-	
-	fmt.Println(_hash)
 	ctx := context.Background()
 	s := common.HexToHash(_hash)
 
@@ -30,6 +28,15 @@ func EVMGetEvents(_hash string) {
 	logs := tx.Logs
 
 	for _, log := range logs {
+		event, err := contractAbi.EventByID(log.Topics[0]) // Use the first topic to identify the event
+        if err != nil {
+            // fmt.Println("error fetching event by ID: ", err)
+			// will error when the event is not in the ABI, and only the xcall abi is loaded, 
+			// so all other events will error / be ignored
+            continue
+        }
+		_ = event
+
 		_fromBTPAddress := log.Topics[1]
 
 		for _, btpAddr := range config.BTP_ADDRESSES_TO_TRACK {
@@ -37,11 +44,8 @@ func EVMGetEvents(_hash string) {
 			sha3Hash.Write([]byte(btpAddr))
 			fromBTPAddressSHA3 := common.BytesToHash(sha3Hash.Sum(nil))
 
-			_,_ = _fromBTPAddress, fromBTPAddressSHA3
-
-			// if _fromBTPAddress == fromBTPAddressSHA3 {
+			if _fromBTPAddress == fromBTPAddressSHA3 {
 				t, err := contractAbi.Unpack("CallMessage", log.Data)
-				// _ = t
 				// if err != nil, it's not a xCall event, return
 				if err != nil {
 					fmt.Println("error at unpacking - ", err)
@@ -54,11 +58,8 @@ func EVMGetEvents(_hash string) {
 					ReqId: _reqId,
 					Data:  _data,
 				}
-
-				_ = newReqIdAndData
-				// this is now blocking the go routine some how
 				ReqIdAndDataChan <- newReqIdAndData
-			// }
+			}
 		}
 	}
 
