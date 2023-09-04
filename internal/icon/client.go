@@ -31,7 +31,7 @@ func init() {
 		panic("WALLET_PASSWORD is empty. Please check your .env file.")
 	}
 
-	// err as a seperate var so we do not have to redeclare Wallet by using :=
+	// err as a separate var so we do not have to redeclare Wallet by using :=
 	var _err error
 	Wallet, _err = wallet.LoadWallet("./wallet/keystore", PASSWORD)
 	if _err != nil {
