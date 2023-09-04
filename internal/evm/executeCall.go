@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"math/big"
+	"time"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
@@ -18,9 +19,8 @@ import (
 //
 // Calls the 'executeCall' method on the xCall contract.
 func CallExecuteCall() {
-	for {
-		r := <-ReqIdAndDataChan
-
+	
+	for r := range ReqIdAndDataChan {
 		publicKey := privateKey.Public()
 		publicKeyECDSA, ok := publicKey.(*ecdsa.PublicKey)
 		if !ok {
@@ -44,8 +44,8 @@ func CallExecuteCall() {
 
 		toAddress := common.HexToAddress(config.SEPOLIA_XCALL_ADDRESS)
 
-		fmt.Println("data - ", []byte(r.Data))
-		fmt.Println("reqId - ", r.ReqId)
+		// fmt.Println("data - ", []byte(r.Data))
+		// fmt.Println("reqId - ", r.ReqId)
 
 		// Encode the function call data using the ABI
 		data, err := contractAbi.Pack("executeCall", r.ReqId, r.Data)
@@ -67,7 +67,9 @@ func CallExecuteCall() {
 		// if in test mode, just print the tx
 		if config.TestMode {
 			fmt.Printf("\nexecuteCall called on Sepolia xCall contract.\nreqId: 0x%s\ndata: %s\n", r.ReqId, r.Data)
-			return
+			// sleep to prevent the api from crying
+			time.Sleep(5 * time.Second)
+			continue
 		}
 
 		err = EVMClient.SendTransaction(context.Background(), signedTx)

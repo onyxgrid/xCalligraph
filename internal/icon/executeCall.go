@@ -44,7 +44,7 @@ func CallExecuteCall() {
 		// if we are in test mode, just print the tx
 		if config.TestMode {
 			fmt.Printf("\nexecuteCall called on Berlin xCall contract.\nreqId: %v\ndata: %v\n", r.ReqId, r.Data)
-			return
+			continue	
 		}
 
 		// sign the tx

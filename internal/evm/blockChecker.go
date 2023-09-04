@@ -56,9 +56,7 @@ func CheckBlocks() {
 
 // Handles the blocks sent by the CheckBlocks() function. Checks all transactions in the block.
 func HandleBlock() {
-	for {
-		b := <-CurBlockChan
-
+	for b := range CurBlockChan {
 		// for testing. log the block height.
 		fmt.Printf("Block %d\n", b.NumberU64())
 		fmt.Printf("Amount of transactions: %d\n", len(b.Transactions()))
@@ -74,15 +72,11 @@ func HandleBlock() {
 
 // Handles the transactions sent by the HandleBlock() function. Checks if the transaction is a xCall transaction.
 func HandleTransaction() {
-	for {
-		tx := <-TransactionChan
-		// fmt.Println("tx:",tx.Hash(),"tx to:", tx.To().Hex())
-
+	for tx := range TransactionChan {
 		if tx.To() == nil {
-			// fmt.Println("to is nil")
 			continue
 		}
-
+		
 		if tx.To().Hex() == config.SEPOLIA_BMC_ADDRESS {
 			EVMGetEvents(tx.Hash().Hex())
 		}

@@ -12,5 +12,5 @@ type reqIdAndData struct {
 }
 
 var CurBlockChan = make(chan *types.Block, 1)
-var TransactionChan = make(chan *types.Transaction, 20)
-var ReqIdAndDataChan = make(chan reqIdAndData, 1)
+var TransactionChan = make(chan *types.Transaction)
+var ReqIdAndDataChan = make(chan reqIdAndData)

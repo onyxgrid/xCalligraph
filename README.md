@@ -48,6 +48,3 @@ Keep in mind that you have to udpate the contract addresses in the .env file. Es
 
 ## Issues
 - [] for some reason call-messages are ignored when a bunch in a row are sent? In one example there were 3 callmessages in 1 block (block 4149075), only one (the first) got exectued by xCalligraph.
-
-## TODO
-- [] add rpc endpoint to .env file, should be possible to switch to any evm or jvm chain then?

@@ -2,6 +2,7 @@ package evm
 
 import (
 	"context"
+	"fmt"
 	"math/big"
 
 	"github.com/ethereum/go-ethereum/common"
@@ -16,7 +17,8 @@ import (
 // var BTPADDRESSBERLINDAPP = "btp://0x7.icon/cx39bf06738279054733580d179ce6eab0ed19a8c2"
 
 func EVMGetEvents(_hash string) {
-
+	
+	fmt.Println(_hash)
 	ctx := context.Background()
 	s := common.HexToHash(_hash)
 
@@ -28,7 +30,6 @@ func EVMGetEvents(_hash string) {
 	logs := tx.Logs
 
 	for _, log := range logs {
-
 		_fromBTPAddress := log.Topics[1]
 
 		for _, btpAddr := range config.BTP_ADDRESSES_TO_TRACK {
@@ -36,32 +37,28 @@ func EVMGetEvents(_hash string) {
 			sha3Hash.Write([]byte(btpAddr))
 			fromBTPAddressSHA3 := common.BytesToHash(sha3Hash.Sum(nil))
 
-			if _fromBTPAddress == fromBTPAddressSHA3 {
+			_,_ = _fromBTPAddress, fromBTPAddressSHA3
+
+			// if _fromBTPAddress == fromBTPAddressSHA3 {
 				t, err := contractAbi.Unpack("CallMessage", log.Data)
-				_ = t
+				// _ = t
 				// if err != nil, it's not a xCall event, return
 				if err != nil {
+					fmt.Println("error at unpacking - ", err)
 					return
 				}
 				_reqId := t[0].(*big.Int)
 				_data := t[1].([]byte) // this is a []uint8/[]byte type
-
-				// fmt.Printf("reqId type: %T\n", _reqId)
-				// fmt.Println("reqId:", t[0])
-				// fmt.Println("data:", t[1])
-				// fmt.Println("data:", _data)
-
-				// hexStringData := hex.EncodeToString(_data)
-
-				// fmt.Println(hexStringData)
 
 				newReqIdAndData := reqIdAndData{
 					ReqId: _reqId,
 					Data:  _data,
 				}
 
+				_ = newReqIdAndData
+				// this is now blocking the go routine some how
 				ReqIdAndDataChan <- newReqIdAndData
-			}
+			// }
 		}
 	}
 
