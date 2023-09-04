@@ -87,12 +87,7 @@ func CheckBlocks() {
 
 // Handles the blocks sent by the CheckBlocks() function. Checks all transactions in the block.
 func HandleBlock() {
-	for {
-		b := <-CurBlockChan
-
-		// for testing. log the block height.
-		// fmt.Printf("Block %d\n", b.Height)
-
+	for b := range CurBlockChan {
 		for _, rawTx := range b.NormalTransactions {
 			// rawTx is a []byte, convert to TransactionHashParam
 			jsonTx := json.RawMessage(rawTx)
@@ -110,8 +105,7 @@ func HandleBlock() {
 Gets the events of a transaction.
 */
 func HandleTransaction() {
-	for {
-		tx := <-TransactionChan
+	for tx := range TransactionChan {
 		GetEvents(tx)
 	}
 }

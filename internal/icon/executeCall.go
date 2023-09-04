@@ -16,9 +16,7 @@ var handledReqIDs []string
 //
 // Calls the 'executeCall' method on the xCall contract.
 func CallExecuteCall() {
-
-	for {
-		r := <-ReqIdAndDataChan
+	for r := range ReqIdAndDataChan {
 		for _, reqID := range handledReqIDs {
 			if reqID == r.ReqId {
 				return
