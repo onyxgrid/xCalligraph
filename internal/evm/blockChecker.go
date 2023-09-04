@@ -11,7 +11,6 @@ import (
 
 func CheckBlocks() {
 	latestBlock, _ := EVMClient.BlockNumber(context.Background())
-	// fmt.Println("currentBlock:", latestBlock)
 
 	if config.TestMode {
 		_ = latestBlock
