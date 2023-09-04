@@ -44,7 +44,7 @@ SEPOLIA_TEST_BLOCKHEIGHT=1000000
 TEST_WITH_SIGNING_TXS=false # set to true if you want to send the executeCall transactions
 ```
 
-_BTP_ADDRESS_TO_TRACK_ holds the BTP-addresses of the contract. These are the addresses that will be tracked for events. And only events from this address will call the `executeCall` xCall function.
+_BTP_ADDRESS_TO_TRACK_ holds the BTP-addresses of the contracts. These are the addresses that will be tracked for events. And only events from this address will call the `executeCall` xCall function. So you 'register' a contract by adding it's BTP-address to this list.
 
 ## How to run
 Make sure to have Docker and docker-compose installed. Then simply run `make run` in the root folder. This will build the docker image and start the container in the background of your system. 
