@@ -51,7 +51,7 @@ Make sure to have Docker and docker-compose installed. Then simply run `make run
 
 To stop the container run `make stop`.
 
-# How to run in test mode
+## How to run in test mode
 In testmode you can run it with or without transaction signing. If you run it without signing it will only print the tx data to the console. If you run it with signing it will send the signed 'executeCall' transaction. The transaction will then also be logged to the transactions.log file.
 
 Before you run a test, make sure to set the blocknumber you want to check for the xCall event in the `.env` file.
