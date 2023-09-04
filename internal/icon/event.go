@@ -24,7 +24,7 @@ func GetEvents(_hash *v3.TransactionHashParam) error {
 	// try out this: check to, only handle if to == xcall contract address
 	// not sure if tx can be nil...
 	to := tx.To.Address().String()
-	if !strings.EqualFold(to, config.BERLIN_BMC_ADDRESS) {	
+	if !strings.EqualFold(to, config.BERLIN_BMC_ADDRESS) {
 		return nil
 	}
 

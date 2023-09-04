@@ -74,7 +74,7 @@ func HandleTransaction() {
 		if tx.To() == nil {
 			continue
 		}
-		
+
 		if tx.To().Hex() == config.SEPOLIA_BMC_ADDRESS {
 			EVMGetEvents(tx.Hash().Hex())
 		}

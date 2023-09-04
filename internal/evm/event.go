@@ -29,12 +29,12 @@ func EVMGetEvents(_hash string) {
 
 	for _, log := range logs {
 		event, err := contractAbi.EventByID(log.Topics[0]) // Use the first topic to identify the event
-        if err != nil {
-            // fmt.Println("error fetching event by ID: ", err)
-			// will error when the event is not in the ABI, and only the xcall abi is loaded, 
+		if err != nil {
+			// fmt.Println("error fetching event by ID: ", err)
+			// will error when the event is not in the ABI, and only the xcall abi is loaded,
 			// so all other events will error / be ignored
-            continue
-        }
+			continue
+		}
 		_ = event
 
 		_fromBTPAddress := log.Topics[1]

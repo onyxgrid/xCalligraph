@@ -22,9 +22,9 @@ func init() {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-	
+
 	Client = GetClient("berlin")
-	
+
 	PASSWORD := os.Getenv("BERLIN_WALLET_PASSWORD")
 
 	if PASSWORD == "" {

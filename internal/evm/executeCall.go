@@ -19,7 +19,7 @@ import (
 //
 // Calls the 'executeCall' method on the xCall contract.
 func CallExecuteCall() {
-	
+
 	for r := range ReqIdAndDataChan {
 		publicKey := privateKey.Public()
 		publicKeyECDSA, ok := publicKey.(*ecdsa.PublicKey)

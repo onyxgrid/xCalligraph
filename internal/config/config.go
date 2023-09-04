@@ -12,9 +12,9 @@ import (
 )
 
 var (
-	TestMode               	bool
-	TestModeWithSigning		bool
-	BerlinTestBlockHeight  	int64
+	TestMode               bool
+	TestModeWithSigning    bool
+	BerlinTestBlockHeight  int64
 	SepoliaTestBlockHeight int64
 	BTP_ADDRESSES_TO_TRACK []string
 	XCALL_ADDRESS          string
