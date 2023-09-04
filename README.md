@@ -44,7 +44,7 @@ SEPOLIA_TEST_BLOCKHEIGHT=1000000
 TEST_WITH_SIGNING_TXS=false # set to true if you want to send the executeCall transactions
 ```
 
-_BTP_ADDRESS_TO_TRACK_ is the BTP address of the xCall contract on the source chain. This is the address that will be tracked for events. And only events from this address will call the `executeCall` function on the Berlin chain.
+_BTP_ADDRESS_TO_TRACK_ holds the BTP-addresses of the contract. These are the addresses that will be tracked for events. And only events from this address will call the `executeCall` xCall function.
 
 ## How to run
 Make sure to have Docker and docker-compose installed. Then simply run `make run` in the root folder. This will build the docker image and start the container in the background of your system. 
@@ -52,11 +52,11 @@ Make sure to have Docker and docker-compose installed. Then simply run `make run
 To stop the container run `make stop`.
 
 # How to run in test mode
-In testmoded you can run it with or without transaction signing. If you run it without signing it will only print the tx data to the console. If you run it with signing it will send the signed 'executeCall' transaction. The transaction will then also be logged to the transactions.log file.
+In testmode you can run it with or without transaction signing. If you run it without signing it will only print the tx data to the console. If you run it with signing it will send the signed 'executeCall' transaction. The transaction will then also be logged to the transactions.log file.
 
 Before you run a test, make sure to set the blocknumber you want to check for the xCall event in the `.env` file.
 
-To run in test mode without signing run `make test`. To run in test mode with signing run `make test-sign`. Needless to say that you need to have the correct wallet config set up in the `.env` file as well.
+To run in test mode without signing run `make test`. To run in test mode with signing run `make testwithsigning`. Needless to say that you need to have the correct wallet config set up in the `.env` file as well.
 
 ## What could go wrong when using this
 Keep in mind that you have to update the contract addresses in the `.env` file. Especially during testing this is something that is easily forgotten. If you don't update the contract addresses xCalligraph will not work.
