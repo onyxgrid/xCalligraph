@@ -41,6 +41,7 @@ func CallExecuteCall() {
 
 		// add 10% to the suggested gas price
 		gasPrice = gasPrice.Mul(gasPrice, big.NewInt(110))
+		gasPrice = gasPrice.Div(gasPrice, big.NewInt(100))
 
 		toAddress := common.HexToAddress(config.SEPOLIA_XCALL_ADDRESS)
 
