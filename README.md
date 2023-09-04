@@ -12,13 +12,13 @@
 
 # xCalligraph
 
-xCalligraph tracks the ICON Berlin Testnet, and the Ethereum Sepolia Testnet for xCall events. Especially sendMessage events, and triggers a executeCall transaction when a sendMessage event is found.
+xCalligraph tracks the ICON Berlin Testnet, and the Ethereum Sepolia Testnet for xCall events. Especially sendMessage events, and triggers an `executeCall` transaction when a `sendMessage` event is found.
 
-If you hook up a wallet with funds to xCalligraphm it will automatically send the executeCall transaction.
+If you hook up a wallet with funds to xCalligraph, it will automatically send the `executeCall` transaction.
 
 ## Before running
-1. Change the .env.example to .env and fill in the required values.
-2. Place a wallet keystore file in the wallet folder and name it `keystore` (Without file extension like .json .) Make sure that the wallet has funds on the Berlin testnet. If want to use xCalligraph to automatically send the executeCall transaction on Sepolia, make sure to have funds on the Sepolia testnet as well and put the private key of that wallet in the `.env` file.
+1. Change the `.env.example` to `.env` and fill in the required values.
+2. Place a wallet keystore file in the wallet folder and name it `keystore` (Without file extension, like .json.) Make sure that the wallet has funds on the Berlin testnet. If want to use xCalligraph to automatically send the executeCall transaction on Sepolia, make sure to have funds on the Sepolia testnet as well and put the private key of that wallet in the `.env` file.
 
 So make sure that you have set up the `.env` file correctly for the chain you need to sign the xCall `executeCall` function on. 
 
@@ -52,7 +52,7 @@ Make sure to have Docker and docker-compose installed. Then simply run `make run
 To stop the container run `make stop`.
 
 ## How to run in test mode
-In testmode you can run it with or without transaction signing. If you run it without signing it will only print the tx data to the console. If you run it with signing it will send the signed 'executeCall' transaction. The transaction will then also be logged to the transactions.log file.
+In testmode you can run it with or without transaction signing. If you run it without signing it will only print the tx data to the console. If you run it with signing it will send the signed `executeCall` transaction. The transaction will then also be logged to the transactions.log file.
 
 Before you run a test, make sure to set the blocknumber you want to check for the xCall event in the `.env` file.
 
