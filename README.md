@@ -40,8 +40,6 @@ SEPOLIA_XCALL_ADDRESS=0x694C1f5Fb4b81e730428490a1cE3dE6e32428637
 # So 1000000 is valid, 1_000_000 is not, nor is 1.000.000 etc.
 BERLIN_TEST_BLOCKHEIGHT=1000000
 SEPOLIA_TEST_BLOCKHEIGHT=1000000
-
-TEST_WITH_SIGNING_TXS=false # set to true if you want to send the executeCall transactions
 ```
 
 _BTP_ADDRESS_TO_TRACK_ holds the BTP-addresses of the contracts. These are the addresses that will be tracked for events. And only events from this address will call the `executeCall` xCall function. So you 'register' a contract by adding it's BTP-address to this list.
